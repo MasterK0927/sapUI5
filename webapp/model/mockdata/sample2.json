@@ -1,0 +1,9 @@
+{
+    "empStr": {
+        "empId": "99",
+        "empName": "hehe",
+        "empSalary": "60000",
+        "empAddress": "Los Angeles"
+    },
+    "empArr": []
+}

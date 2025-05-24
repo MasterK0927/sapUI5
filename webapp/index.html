@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- src has the cdn link, which is called ui5 bootstrap -->
+    <!-- data-sap-ui-libs is the library we want to use -->
+    <!-- data-sap-ui-theme is the theme we want to use -->
+    <script
+        src="https://ui5.sap.com/resources/sap-ui-core.js"
+        data-sap-ui-libs="sap.m"
+        data-sap-ui-theme="sap_fiori_3_dark"
+        data-sap-ui-resourceroots='{
+            "testApp": "./"
+        }'
+        data-sap-ui-async="true"
+		data-sap-ui-compatVersion="edge"
+		data-sap-ui-preload="async"
+    >
+    </script>
+    <script>
+        sap.ui.getCore().attachInit(function() {
+            sap.ui.xmlview({
+                viewName: "testApp.view.Main"
+            }).placeAt("content");
+        })
+    </script>
+</head>
+<body class="sapUiBody">
+    <h1>hello world</h1>
+    <div id="content"></div>
+</body>
+</html>

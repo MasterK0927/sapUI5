@@ -1,0 +1,6 @@
+{
+	"sap.app":{
+		"id":"jerry",
+		"type": "application"
+	}
+}

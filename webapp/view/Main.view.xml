@@ -1,0 +1,40 @@
+<mvc:View
+    controllerName="testApp.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+>
+    <f:SimpleForm>
+        <f:content>
+            <Label text="Emp Id" />
+            <Input
+                id="empId"
+                value="{/empStr/empId}"
+                placeholder="Enter Employee ID"
+            ></Input>
+            <Label text="Emp Name" />
+            <Input
+                id="empName"
+                value="{model2>/empStr/empName}"
+                placeholder="Enter Employee Name"
+            ></Input>
+            <Label text="Emp Salary" />
+            <Input
+                id="empSalary"
+                value="{/empStr/empSalary}"
+                placeholder="Enter Employee Salary"
+            ></Input>
+            <Label text="Emp Address" />
+            <Input
+                id="empAddress"
+                value="{/empStr/empAddress}"
+                placeholder="Enter Employee Address"
+            ></Input>
+        </f:content>
+    </f:SimpleForm>
+    <Button
+        text="Click Me"
+        icon="sap-icon://accept"
+        press="onButtonPress"
+    />
+</mvc:View>
