@@ -735,3 +735,197 @@ this.getView().setModel(oModel);
 ```xml
 <Text text="{myModel>/name}"/>
 ```
+
+-----------------------------------------------------
+
+## Global Variables .
+
+- They are used to reduce the constant reuse of some commonly used variables.
+
+So we declare some global variables in the controller, and then we can use them in the view using expression binding.
+
+- Declaring a global variable
+```javascript
+var sGlobalVariable = "Hello World";
+```
+
+## Hook Functions
+
+- Hook functions are special functions that are called at specific points in the lifecycle of a controller or view. They allow us to execute custom logic at these points, such as initializing data, handling events, or cleaning up resources.
+- Hook functions are defined in the controller class, and they are automatically called by the SAP UI5 framework at the appropriate time. Some common hook functions include `onInit`, `onBeforeRendering`, `onAfterRendering`, and `onExit`.
+- The `onInit` function is called when the controller is initialized, and it is used to perform any setup or initialization tasks, such as loading data or setting up event handlers.
+```javascript
+onInit: function () {
+	this.getView().setModel(new sap.ui.model.json.JSONModel({
+		name: "John Doe",
+		age: 30
+	}));
+}
+```
+- The `onBeforeRendering` function is called before the view is rendered, and it is used to perform any tasks that need to be done before the view is displayed, such as updating data or modifying the view structure.
+```javascript
+onBeforeRendering: function () {
+	var oModel = this.getView().getModel();
+	oModel.setProperty("/name", "Jane Doe");
+}
+```
+- The `onAfterRendering` function is called after the view is rendered, and it is used to perform any tasks that need to be done after the view is displayed, such as updating the UI or handling events.
+```javascript
+onAfterRendering: function () {
+	var oButton = this.getView().byId("myButton");
+	oButton.setText("Click Me");
+}
+```
+- The `onExit` function is called when the controller is destroyed, and it is used to perform any cleanup tasks, such as removing event handlers or releasing resources.
+```javascript
+onExit: function () {
+	var oModel = this.getView().getModel();
+	oModel.destroy();
+}
+```
+- Hook functions are an important part of the SAP UI5 framework, as they allow us to control the lifecycle of the controller and view, and to execute custom logic at specific points in the application flow. By using hook functions, we can ensure that our application behaves as expected and that it is responsive to user interactions.
+
+## XML Model
+
+- As we use xml data, so we have to use xml model to bind the data to the view. The XML model is a built-in model in SAP UI5 that allows us to work with XML data in a structured way.
+- The XML model can be created using the `sap.ui.model.xml.XMLModel` class, which provides methods for managing XML data. The model can be bound to views and controls using the `bindElement` and `bindProperty` methods.
+```javascript
+var oModel = new sap.ui.model.xml.XMLModel();
+oModel.loadData("data.xml");
+this.getView().setModel(oModel);
+```
+- In this example, we first create a new XML model object using the `sap.ui.model.xml.XMLModel` class. We then load the XML data from a file named "data.xml" using the `loadData` method. Finally, we set the model on the view using the `setModel` method.
+
+## Binding Types in SAP UI5
+- **Property Binding:** Property binding is used to bind a property of a control to a property in the model. This allows the control to display data from the model and update its value when the model changes.
+```xml
+<!-- Binding of property of a control to the xpath -->
+<Text text="{/name}"/>
+```
+- **Expression Binding:** Expression binding is used to bind a property of a control to an expression that can include multiple properties from the model. This allows for more complex data manipulation and formatting.
+```xml
+<!-- Binding logical expression to the xpath -->
+<Text text="{= ${/firstName} + ' ' + ${/lastName} }"/>
+```
+- **Aggregation Binding:** Aggregation binding is used to bind a collection of items in the model to a control that can display multiple items, such as a list or table. This allows the control to display a dynamic list of items based on the data in the model.
+```xml
+<!--  -->
+<List items="{/items}">
+	<Item>
+		<Text text="{name}"/>
+	</Item>
+</List>
+```
+- **Element Binding:** Element binding is used to bind a specific element in the model to a control. This allows the control to display data for a specific item in the model, such as a detail view for a selected item.
+```xml
+<mvc:View
+	controllerName="myApp.controller.Detail"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<Page title="{/title}">
+		<content>
+			<Text text="{/description}"/>
+		</content>
+	</Page>
+</mvc:View>
+```
+
+- JSON models are most widely used, xml models are used nearly to 0
+
+ ---------------------------------
+
+ **Aggregation Control**
+- When we bind the aggregation of a control with a path, usually the child of an aggregated control will get binded with the properties of child node in model.
+
+### Aggregation Table Control
+- columns:
+-- each column inside it is also a column class
+-- tables will be viewed/displayed only when rows are binded to the column
+-- We also have to specify the type of the column, that is the cell type of the table. For it we have another aggregation called `template`, using which we can define the control required for the template, and what kind of value it will be. So the format for it becomes
+```xml
+<mvc:View
+    controllerName="testApp.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+>
+    <t:Table>
+        <t:columns>
+            <t:Column label="Emp Id">
+                <t:template>
+                    <Text text=""></Text>
+                </t:template>
+            </t:Column>
+            <t:Column label="Emp Name">
+                <t:template>
+                    <Input value=""></Input>
+                </t:template>
+            </t:Column>
+            <t:Column label="Emp Address">
+                <t:template>
+                    <Text text=""></Text>
+                </t:template>
+            </t:Column>
+            <t:Column label="Emp Salary">
+                <t:template>
+                    <Text text=""></Text>
+                </t:template>
+            </t:Column>
+        </t:columns>
+    </t:Table>
+    <f:SimpleForm>
+        <f:content>
+            <Label text="Emp Id" />
+            <Input
+                id="empId"
+                value="{/empStr/empId}"
+                placeholder="Enter Employee ID"
+            />
+            <Label text="Emp Name" />
+            <Input
+                id="empName"
+                value="{model2>/empStr/empName}"
+                placeholder="Enter Employee Name"
+            />
+            <Label text="Emp Salary" />
+            <Input
+                id="empSalary"
+                value="{/empStr/empSalary}"
+                placeholder="Enter Employee Salary"
+            />
+            <Label text="Emp Address" />
+            <Input
+                id="empAddress"
+                value="{/empStr/empAddress}"
+                placeholder="Enter Employee Address"
+            />
+        </f:content>
+    </f:SimpleForm>
+    <Button
+        text="Click Me"
+        icon="sap-icon://accept"
+        press="onButtonPress"
+    />
+    <Button
+        id="printButton"
+        text="Print"
+        icon="sap-icon://print"
+        press="onButtonPress2"
+    />
+    <Switch 
+        name="JustASwitch"
+        state="false"
+        change="onSwitchChange"
+    >
+    </Switch>
+</mvc:View>
+```
+-- Now we have to add `rows` aggregation to it
+-- Rows can only be used with data binding
+
+----------------------------------------------------------
+
+## Element Binding
+
+- In UI5, an element is a memory which is allocated during the aggregation binding. When we were performing aggregation binding, multiple rows were attached to the table, each row allocates a separate memory which is the `element`.
