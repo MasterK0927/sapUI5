@@ -3,7 +3,59 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+    xmlns:core="sap.ui.core"
 >
+    <t:Table rows="{/empArr}" selectionMode="Single" visibleRowCount="5">
+        <t:columns>
+            <t:Column label="Emp Id">
+                <t:template>
+                    <Text text="{empId}"></Text>
+                </t:template>
+            </t:Column>
+            <t:Column label="Emp Name">
+                <t:template>
+                    <Input value="{empName}"></Input>
+                </t:template>
+            </t:Column>
+            <t:Column label="Emp Address">
+                <t:template>
+                    <Text text="{empAddress}"></Text>
+                </t:template>
+            </t:Column>
+            <t:Column label="Emp Salary">
+                <t:template>
+                    <Text text="{empSalary}"></Text>
+                </t:template>
+            </t:Column>
+            <t:Column label="Emp Gender">
+                <t:template>
+                    <Image src="{gender}" width="25px" height="25px"></Image>
+                </t:template>
+            </t:Column>
+            <t:Column label="Smoker">
+                <t:template>
+                    <CheckBox selected="{smoker}"></CheckBox>
+                </t:template>
+            </t:Column>
+            <t:Column label="Marital Staus">
+                <t:template>
+                    <Select selectedKey="{mStatus}">
+                        <items>
+                            <core:Item key="M" text="Married"></core:Item>
+                            <core:Item key="S" text="Single"></core:Item>
+                            <core:Item key="U" text="Unknown"></core:Item>
+                        </items>
+                    </Select>
+                </t:template>
+            </t:Column>
+            <t:Column label="Ratings">
+                <t:template>
+                    <RatingIndicator value="{rating}" maxValue="5" iconSize="1rem"></RatingIndicator>
+                </t:template>
+            </t:Column>
+        </t:columns>
+    </t:Table>
     <f:SimpleForm>
         <f:content>
             <Label text="Emp Id" />
@@ -11,25 +63,25 @@
                 id="empId"
                 value="{/empStr/empId}"
                 placeholder="Enter Employee ID"
-            ></Input>
+            />
             <Label text="Emp Name" />
             <Input
                 id="empName"
-                value="{model2>/empStr/empName}"
+                value="{/empStr/empName}"
                 placeholder="Enter Employee Name"
-            ></Input>
+            />
             <Label text="Emp Salary" />
             <Input
                 id="empSalary"
                 value="{/empStr/empSalary}"
                 placeholder="Enter Employee Salary"
-            ></Input>
+            />
             <Label text="Emp Address" />
             <Input
                 id="empAddress"
                 value="{/empStr/empAddress}"
                 placeholder="Enter Employee Address"
-            ></Input>
+            />
         </f:content>
     </f:SimpleForm>
     <Button
@@ -37,4 +89,16 @@
         icon="sap-icon://accept"
         press="onButtonPress"
     />
+    <Button
+        id="printButton"
+        text="Print"
+        icon="sap-icon://print"
+        press="onButtonPress2"
+    />
+    <Switch 
+        name="JustASwitch"
+        state="false"
+        change="onSwitchChange"
+    >
+    </Switch>
 </mvc:View>

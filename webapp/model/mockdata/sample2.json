@@ -3,7 +3,67 @@
         "empId": "99",
         "empName": "hehe",
         "empSalary": "60000",
-        "empAddress": "Los Angeles"
+        "empAddress": "Luana Triumph"
     },
-    "empArr": []
+    "empArr": [
+        {
+            "empId": "99",
+            "empName": "hehe",
+            "empSalary": "90000",
+            "empAddress": "Los",
+            "gender": "https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png",
+            "smoker": false,
+            "mStatus": "S"
+        },
+        {
+            "empId": "100",
+            "empName": "hoho",
+            "empSalary": "60000",
+            "empAddress": "Washington",
+            "gender": "https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png",
+            "smoker": true,
+            "mStatus": "S",
+            "rating": 3
+        },
+        {
+            "empId": "101",
+            "empName": "hehehihi",
+            "empSalary": "100000",
+            "empAddress": "New York",
+            "gender": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGyPFw6MUj2wuXgM5VsbgetlgOxvMeg5JQjg&s",
+            "smoker": false,
+            "mStatus": "M",
+            "rating": 3
+        },
+        {
+            "empId": "102",
+            "empName": "hehaae",
+            "empSalary": "50000",
+            "empAddress": "Chicago",
+            "gender": "https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png",
+            "smoker": true,
+            "mStatus": "U",
+            "rating": 4.5
+        },
+        {
+            "empId": "103",
+            "empName": "asddhehe",
+            "empSalary": "100002",
+            "empAddress": "Los Angeles",
+            "gender": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGyPFw6MUj2wuXgM5VsbgetlgOxvMeg5JQjg&s",
+            "smoker": true,
+            "mStatus": "M",
+            "rating": 3.3
+        },
+        {
+            "empId": "104",
+            "empName": "dfew hehe",
+            "empSalary": "100005",
+            "empAddress": "Angeles",
+            "gender": "https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png",
+            "smoker": false,
+            "mStatus": "U",
+            "rating": 3.8
+        }
+    ]
 }

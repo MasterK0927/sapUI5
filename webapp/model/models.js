@@ -1,6 +1,7 @@
 sap.ui.define([
-    "sap/ui/model/json/JSONModel"
-], function(JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/xml/XMLModel",
+], function(JSONModel, XMLModel) {
     "use strict";
     return {
         createJSONModel: function(filePath) {
@@ -19,6 +20,11 @@ sap.ui.define([
             // file will never change, as model is the object of data, and this file is just used for creating the model
             // oModel.loadData("model/mockdata/sample.json"); // assuming you have a sample.json file in the mockdata folder
             // for multiple models, we can pass filePath
+            oModel.loadData(filePath);
+            return oModel;
+        },
+        createXMLModel: function(filePath) {
+            var oModel = new XMLModel();
             oModel.loadData(filePath);
             return oModel;
         }
