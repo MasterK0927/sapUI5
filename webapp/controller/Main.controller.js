@@ -1,10 +1,12 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    // "sap/ui/core/mvc/Controller",
+    // we can remove the above line if we are using the base controller
     "testApp/model/models",
-    "sap/m/MessageToast"
-], function (Controller, models, MessageToast) {
+    "sap/m/MessageToast",
+    "testApp/controller/BaseController"
+], function (models, MessageToast, BaseController) {
     "use strict";
-    return Controller.extend("testApp.controller.Main", {
+    return BaseController.extend("testApp.controller.Main", {
         onInit: function () {
             // for creating a global variable
             // this - represents the current class, since we are inside
@@ -42,6 +44,14 @@ sap.ui.define([
             this.getView().byId("empSalary").bindValue("/empStr/empSalary");
             // syntax 4: using dynamic binding with js generic function
             this.getView().byId("empAddress").bindProperty("value", "/empStr/empAddress");
+
+            // BaseController function call, it will call the fx1 function defined in the base controller for reusability
+            BaseController.fx1();
+
+            // for internationalization
+            var oRm = models.createResourceModel();
+            // now set the resource model to the core component
+            sap.ui.getCore().setModel(oRm, "i18n");
         },
         // // for getting ui5 object
         // onButtonPress: function() {

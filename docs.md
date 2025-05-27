@@ -92,6 +92,7 @@ var oObjectName = new library.Class(sId, {
 ```
 - In this code, we define a new view using the `mvc:View` tag, and we specify the controller name using the `controllerName` attribute. We also define the layout of the view using the `Page` and `Button` tags.
 - The `xmlns:mvc` and `xmlns` attributes are used to define the namespaces for the XML file. The `xmlns:mvc` attribute is used to define the namespace for the MVC framework, and the `xmlns` attribute is used to define the namespace for the SAP UI5 controls.
+
 - The `Page` tag is used to create a new page in the view, and the `Button` tag is used to create a new button. The `text` attribute is used to set the text that will be displayed on the button, and the `press` attribute is used to specify the event handler function that will be called when the button is clicked.
 - The `onButtonPress` function is defined in the controller file, and it will be called when the button is clicked. The controller file should be placed in the `controller` folder of the project.
 - The controller file should contain the following code:
@@ -915,7 +916,7 @@ this.getView().setModel(oModel);
     />
     <Switch 
         name="JustASwitch"
-        state="false"
+        state="false
         change="onSwitchChange"
     >
     </Switch>
@@ -929,3 +930,192 @@ this.getView().setModel(oModel);
 ## Element Binding
 
 - In UI5, an element is a memory which is allocated during the aggregation binding. When we were performing aggregation binding, multiple rows were attached to the table, each row allocates a separate memory which is the `element`.
+
+## Reusability of controllers code
+
+- If we have to ensure that our controllers are reusable, we should follow best practices such as using component-based architecture and avoiding direct manipulation of the UI elements.
+
+- We can create a base controller that contains common functionality and then extend it in other controllers. This allows us to reuse the code and avoid duplication.
+
+- We can also create utility functions that can be used across multiple controllers. This allows us to encapsulate common functionality and avoid duplication.
+
+- We can use the `sap.ui.define` method to define a module that contains the reusable code, and then use the `extend` method to create a new controller that inherits from the base controller.
+
+```javascript
+sap.ui.define([
+	"sap/ui/core/mvc/Controller"
+], function (Controller) {
+	"use strict";
+
+	return Controller.extend("myApp.controller.BaseController", {
+		onInit: function () {
+			// Common initialization code
+		},
+		commonFunction: function () {
+			// Common functionality
+		}
+	});
+});
+```
+- In this example, we define a base controller named `BaseController` that extends the `sap.ui.core.mvc.Controller` class. The `onInit` method is a hook function that is called when the controller is initialized, and it can contain common initialization code. The `commonFunction` method is a reusable function that can be called from other controllers.
+```javascript
+sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"myApp/controller/BaseController"
+], function (Controller, BaseController) {
+	"use strict";
+
+	return BaseController.extend("myApp.controller.Main", {
+		onInit: function () {
+			BaseController.prototype.onInit.apply(this, arguments);
+			// Additional initialization code for Main controller
+		},
+		onButtonPress: function () {
+			this.commonFunction(); // Call the reusable function from BaseController
+			alert("Button clicked!");
+		}
+	});
+});
+```
+- In this example, we define a new controller named `Main` that extends the `BaseController`. The `onInit` method calls the `onInit` method of the base controller using `BaseController.prototype.onInit.apply(this, arguments)`, allowing us to reuse the common initialization code. The `onButtonPress` method calls the `commonFunction` from the base controller, demonstrating how we can reuse functionality across controllers.
+
+## Best Practices
+- Use the MVC architecture to separate concerns and keep the code organized.
+- Use XML views for declarative UI definition and data binding.
+- Use JSON models for client-side data storage and manipulation.
+- Use OData models for server-side data access and manipulation.
+- Use component-based architecture to encapsulate functionality and promote reusability.
+- Use hook functions to manage the lifecycle of controllers and views.
+- Use data binding to connect models to views and controls, allowing for automatic updates and synchronization.
+- Use aggregation binding to display collections of items in controls like lists and tables.
+- Use expression binding for complex data manipulation and formatting.
+- Use utility functions and base controllers to encapsulate common functionality and promote code reuse.
+- Use the `sap.ui.define` method to define modules and dependencies, promoting modularity and maintainability.
+- Use the `sap.ui.getCore().getModel()` method to access the global model, and use `this.getView().getModel()` to access the model for a specific view.
+- Use the `setModel` method to set models on views and controls, and use the `bindElement` and `bindProperty` methods for data binding.
+- Use the `setProperty` and `getProperty` methods to manipulate model data, and use the `setData` and `getData` methods for working with entire data objects.
+- Use the `refresh` method to update the view with the latest model data.
+- Use the `setDefaultBindingMode` method to control the default binding mode for models, allowing for one-way, two-way, or one-time data binding.
+- Use the `sap.ui.model` namespace to create and manage models, and use the appropriate model class for the data format (JSON, XML, OData, Resource).
+- Use the `sap.ui.core.mvc.Controller` class to create controllers, and use the `sap.ui.core.mvc.View` class to create views.
+- Use the `sap.ui.core.Component` class to create components, and use the `sap.ui.core.ComponentContainer` class to define containers for components.
+- Use the `sap.ui.core.ComponentSupport` class to manage component lifecycle and events.
+- Use the `sap.ui.core.ComponentMetadata` class to define metadata for components, such as dependencies, configuration, and routing.
+- Use the `sap.ui.core.ComponentContainer` class to define containers for components, and use the `sap.ui.core.ComponentSupport` class to manage component lifecycle and events.
+- Use the `sap.ui.core.ComponentMetadata` class to define metadata for components, such as dependencies, configuration, and routing.
+
+**Basic Syntax**
+```javascript
+// BaseController.js
+sap.ui.define([
+	"sap/ui/core/mvc/Controller"
+], function (Controller) {
+	"use strict";
+
+	return Controller.extend("myApp.controller.Main", {
+		onInit: function () {
+			// Initialization code
+		},
+		onButtonPress: function () {
+			alert("Button clicked!");
+		}
+	});
+});
+```
+```xml
+<!-- Main.view.xml -->
+<mvc:View
+	controllerName="myApp.controller.Main"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<Page title="My First View">
+		<content>
+			<Button text="Click Me" press="onButtonPress"/>
+		</content>
+	</Page>
+</mvc:View>
+```
+```javascript
+// Component.js
+sap.ui.define([
+	"sap/ui/core/UIComponent",
+	"sap/ui/model/json/JSONModel"
+], function (UIComponent, JSONModel) {
+	"use strict";
+
+	return UIComponent.extend("myApp.Component", {
+		metadata: {
+			manifest: "json"
+		},
+
+		init: function () {
+			UIComponent.prototype.init.apply(this, arguments);
+			var oModel = new JSONModel();
+			oModel.setData({
+				name: "John Doe",
+				age: 30
+			});
+			this.setModel(oModel);
+		}
+	});
+});
+```
+```xml
+<!-- ComponentContainer.view.xml -->
+<mvc:View
+	controllerName="myApp.controller.ComponentContainer"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<ComponentContainer name="myApp"/>
+</mvc:View>
+```
+```javascript
+// ComponentContainer.controller.js
+sap.ui.define([
+	"sap/ui/core/mvc/Controller"
+], function (Controller) {
+	"use strict";
+
+	return Controller.extend("myApp.controller.ComponentContainer", {
+		onInit: function () {
+			// Initialization code
+		}
+	});
+});
+```
+
+- Resource Model: Basically internationalisation wali bakchodi hai, usi ko bhaut hi jyada inflated form mai likha hua hai. Isko declare krne ke liye basically jaise we used to declare i18 standard files in web dev, waise hi ek `i18n.properties` wali file banani padegi. Aur usme saari i18n wali bakchodi dalni hogi.
+
+```i18n.properties
+XFLD_EMPID=Employee Id
+XFLD_EMPNAME=Employee Name
+XFLD_SAL=Salary
+XFLD_CURR=Currency
+XFLD_SMK=Smoker
+XFLD_MSTAT=Marital Status
+```
+
+- Then use it in the models.js file, using the below syntax
+```javascript
+sap.ui.define(["sap/ui/model/resource/ResourceModel"], function(ResourceModel) {
+	"use strict";
+	return {
+		createResourceModel: function() {
+			var oResource = new ResourceModel({
+				bundleUrl: "i18n/i18n.properties"
+			});
+			return oResource;	
+		}
+	}		
+})
+```
+
+- Fir jaakr ke `Main.controller.js` mai ek function add kr do
+```javascript
+var oRm = models.createResourceModel();
+sap.ui.getCore().setModel(oRm, "i18n");
+```
+
+- Ab isko main views wagera mai use krne ke liye, jyada kuch nhi krna hai, views mai jaakr ke `values` ko `{i18n>XFLD_EMPID}` se replace kr do
+
+- Basically basecontroller agr use kr rhe hai, toh we can skip the use of controller directly and replace it with basecontroller in the main controller

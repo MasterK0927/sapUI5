@@ -8,37 +8,37 @@
 >
     <t:Table rows="{/empArr}" selectionMode="Single" visibleRowCount="5">
         <t:columns>
-            <t:Column label="Emp Id">
+            <t:Column label="{i18n>XFLD_EMPID}">
                 <t:template>
                     <Text text="{empId}"></Text>
                 </t:template>
             </t:Column>
-            <t:Column label="Emp Name">
+            <t:Column label="{i18n>XFLD_EMPNAME}">
                 <t:template>
                     <Input value="{empName}"></Input>
                 </t:template>
             </t:Column>
-            <t:Column label="Emp Address">
+            <t:Column label="{i18n>XFLD_EMPADDRESS}">
                 <t:template>
                     <Text text="{empAddress}"></Text>
                 </t:template>
             </t:Column>
-            <t:Column label="Emp Salary">
+            <t:Column label="{i18n>XFLD_EMPSALARY}">
                 <t:template>
                     <Text text="{empSalary}"></Text>
                 </t:template>
             </t:Column>
-            <t:Column label="Emp Gender">
+            <t:Column label="{i18n>XFLD_EMPGENDER}">
                 <t:template>
                     <Image src="{gender}" width="25px" height="25px"></Image>
                 </t:template>
             </t:Column>
-            <t:Column label="Smoker">
+            <t:Column label="{i18n>XFLD_SMOKER}">
                 <t:template>
                     <CheckBox selected="{smoker}"></CheckBox>
                 </t:template>
             </t:Column>
-            <t:Column label="Marital Staus">
+            <t:Column label="{i18n>XFLD_MSTATUS}">
                 <t:template>
                     <Select selectedKey="{mStatus}">
                         <items>
